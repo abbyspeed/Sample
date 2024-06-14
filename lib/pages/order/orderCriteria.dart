@@ -6,14 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class OrderCriteria extends StatefulWidget{
-  const OrderCriteria({super.key});
+  const OrderCriteria({super.key, required this.parcelName});
+
+  final String parcelName;
 
   @override
   State<OrderCriteria> createState() => _OrderCriteria();
 }
 
 class _OrderCriteria extends State<OrderCriteria>{
-  TextEditingController controller = TextEditingController();
+  late List<String> selectedCriteria;
 
   List colorList = [
     Colors.white,
@@ -43,6 +45,11 @@ class _OrderCriteria extends State<OrderCriteria>{
   ];
 
   @override
+  void initState(){
+    selectedCriteria = [];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: titleBar(context, "Pick your parcel criteria", 35),
@@ -51,17 +58,19 @@ class _OrderCriteria extends State<OrderCriteria>{
           Navigator.pop(context)
         },
         child: SizedBox(
-          child: mainBtn(context, "Proceed", false, (){})
+          child: mainBtn(context, "Proceed", false, (){
+            Navigator.pop(context, selectedCriteria);
+          })
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
         child: Column(
           children: [
-            const Center(
+            Center(
               child: Text(
-                "Parcel MY1234567890",
-                style: TextStyle(
+                "Parcel ${widget.parcelName}",
+                style: const TextStyle(
                   fontWeight: FontWeight.w600
                 ),
               ),
@@ -90,6 +99,8 @@ class _OrderCriteria extends State<OrderCriteria>{
                             selectedList[0] = "true";
                             selectedList[1] = "disabled";
                             selectedList[2] = "disabled";
+
+                            selectedCriteria.add("Medium");
                           });
                         }
                         else if(selectedList[0] == "false" && (selectedList[1] == "true" || selectedList[2] == "true")){
@@ -122,7 +133,7 @@ class _OrderCriteria extends State<OrderCriteria>{
                               ),
                             ),
                             Text(
-                              "Heavy"
+                              "Medium"
                             ),
                           ],
                         )
@@ -146,6 +157,8 @@ class _OrderCriteria extends State<OrderCriteria>{
                             selectedList[1] = "true";
                             selectedList[0] = "disabled";
                             selectedList[2] = "disabled";
+
+                            selectedCriteria.add("Small");
                           });
                         }
                         else if(selectedList[1] == "false" && (selectedList[0] == "true" || selectedList[2] == "true")){
@@ -172,13 +185,13 @@ class _OrderCriteria extends State<OrderCriteria>{
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "1-3kg",
+                              "0.1-3kg",
                               style: TextStyle(
                                 fontSize: 24
                               ),
                             ),
                             Text(
-                              "Medium"
+                              "Small"
                             ),
                           ],
                         )
@@ -202,6 +215,8 @@ class _OrderCriteria extends State<OrderCriteria>{
                             selectedList[2] = "true";
                             selectedList[0] = "disabled";
                             selectedList[1] = "disabled";
+
+                            selectedCriteria.add("Heavy");
                           });
                         }
                         else if(selectedList[2] == "false" && (selectedList[0] == "true" || selectedList[1] == "true")){
@@ -234,7 +249,7 @@ class _OrderCriteria extends State<OrderCriteria>{
                               ),
                             ),
                             Text(
-                              "Extra heavy"
+                              "Heavy"
                             ),
                           ],
                         )
@@ -255,6 +270,8 @@ class _OrderCriteria extends State<OrderCriteria>{
 
                             selectedList[3] = "true";
                             selectedList[5] = "disabled";
+
+                            selectedCriteria.add("No receipt");
                           });
                         }
                         else if(selectedList[3] == "false" && selectedList[5] == "true"){
@@ -300,6 +317,8 @@ class _OrderCriteria extends State<OrderCriteria>{
                         setState(() {
                           colorList[4] = secondaryColour;
                           selectedList[4] = "true";
+
+                          selectedCriteria.add("Fragile");
                         });
                       },
                       radius: 20,
@@ -342,6 +361,8 @@ class _OrderCriteria extends State<OrderCriteria>{
 
                             selectedList[5] = "true";
                             selectedList[3] = "disabled";
+
+                            selectedCriteria.add("Has receipt");
                           });
                         }
                         else if(selectedList[5] == "false" && selectedList[3] == "true"){

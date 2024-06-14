@@ -164,6 +164,8 @@ class ParcelTextField extends StatefulWidget{
 }
 
 class _ParcelTextField extends State<ParcelTextField>{
+  List<String> selectedCriteria = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -226,9 +228,21 @@ class _ParcelTextField extends State<ParcelTextField>{
               InkWell(
                 onTap: () async {
                   await Navigator.push(context, 
-                  MaterialPageRoute(builder: (context) => OrderCriteria()));
+                  MaterialPageRoute(builder: (context) => OrderCriteria(parcelName: widget.controller.text)));
                 },
-                child: Icon(
+                child: selectedCriteria.isNotEmpty ? ListView.builder(
+                  itemCount: selectedCriteria.length,
+                  itemBuilder: (context, index){
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: secondaryColour,
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Text(selectedCriteria[index]),
+                    );
+                  }
+                )
+                : Icon(
                   Icons.add_box
                 ),
               ): Icon(
