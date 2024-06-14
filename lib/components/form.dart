@@ -173,13 +173,6 @@ Widget textLink(
   );
 }
 
-// Criteria link
-Widget criteria(){
-  return Container(
-
-  );
-}
-
 // Buttons
 Widget mainBtn(
     BuildContext context, String text, bool isLogin, Function onTap) {

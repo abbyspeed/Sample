@@ -1,11 +1,13 @@
 import 'package:architech/components/customDropdown.dart';
 import 'package:architech/components/form.dart';
 import 'package:architech/components/navBars.dart';
+import 'package:architech/config/theme.dart';
 import 'package:architech/controllers/formValidator.dart';
 import 'package:architech/models/orderModel.dart';
 import 'package:architech/models/parcelModel.dart';
 import 'package:architech/pages/order/orderCriteria.dart';
 import 'package:architech/pages/order/orderSchedule.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -63,7 +65,7 @@ class _OrderPlace extends State<OrderPlace>{
     super.dispose();
   }
 
-  void createOrder(){
+  void getValues(){
     setState(() {
       order.name = nameController.text;
       order.phoneNumber = phoneController.text;
@@ -130,13 +132,13 @@ class _OrderPlace extends State<OrderPlace>{
                 textFormField("Pickup location", "Where will you pick up your order? ", pickupController, (){}),
                 CustomDropDown(title: "Delivery Centre", selectedValue: selectedValue, itemList: itemList),
                 const SizedBox(height: 30),
-                textFormField("Parcel tracking no", "Enter tracking no", trackingControllers[0], (){}),
+                ParcelTextField(text: "Parcel tracking no", controller: trackingControllers[0], validatorFunction: (){}, enableCriteria: false),
                 displayAddParcels(widgets),
                 outlinedBtn(context, null, Icons.add, (){
                   setState(() {
                     trackingControllers.add(TextEditingController());
                     widgets.add(
-                      textFormField(null, "Enter tracking no", trackingControllers[trackingControllers.length-1], (){})
+                      ParcelTextField(text: null, controller: trackingControllers[trackingControllers.length-1], validatorFunction: (){}, enableCriteria: false)
                     );
                   });
                 }),
@@ -145,6 +147,98 @@ class _OrderPlace extends State<OrderPlace>{
           ),
         ),
       )
+    );
+  }
+}
+
+class ParcelTextField extends StatefulWidget{
+  ParcelTextField({super.key, this.text, required this.controller, required this.validatorFunction, required this.enableCriteria});
+  
+  String? text;
+  TextEditingController controller;
+  Function validatorFunction;
+  late bool enableCriteria = false;
+  
+  @override
+  State<ParcelTextField> createState() => _ParcelTextField();
+}
+
+class _ParcelTextField extends State<ParcelTextField>{
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.bottomLeft,
+      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        widget.text != null ? Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: SizedBox(
+            width: double.infinity,
+            child: Text(
+              widget.text!,
+              style: TextStyle(
+                fontSize: regular,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ): const SizedBox(height: 0),
+        TextFormField(
+          validator: (value) => widget.validatorFunction(value),
+          controller: widget.controller,
+          obscureText: false,
+          enableSuggestions: false,
+          autocorrect: true,
+          cursorColor: primaryColour,
+          decoration: InputDecoration(
+            hintText: "Enter tracking no",
+            hintStyle: const TextStyle(
+              fontWeight: FontWeight.normal,
+              color: Colors.grey,
+            ),
+            isDense: true,
+            contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 2
+              )
+            ),
+            border: OutlineInputBorder(
+                borderSide:
+                    const BorderSide(width: 1, style: BorderStyle.solid),
+                borderRadius: BorderRadius.circular(4))),
+          keyboardType: TextInputType.name,
+          onChanged: (value){
+            setState(() {
+              widget.enableCriteria = value.isNotEmpty ? true : false;
+            });
+          },
+        ),
+        const SizedBox(height: 5),
+        Container(
+          margin: EdgeInsets.only(bottom: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Criteria"
+              ),
+              widget.enableCriteria == true ?
+              InkWell(
+                onTap: () async {
+                  await Navigator.push(context, 
+                  MaterialPageRoute(builder: (context) => OrderCriteria()));
+                },
+                child: Icon(
+                  Icons.add_box
+                ),
+              ): Icon(
+                Icons.add_box,
+                color: lightGrey,
+              )
+            ],
+          )
+        )
+      ]),
     );
   }
 }

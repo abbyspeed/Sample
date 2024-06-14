@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => FormValidator()),
-          ChangeNotifierProvider(create: (context) => OrderProvider()),
-          ChangeNotifierProvider(create: (context) => ParcelProvider()),
+          // ChangeNotifierProvider(create: (context) => OrderProvider()),
+          // ChangeNotifierProvider(create: (context) => ParcelProvider()),
         ],
         child: OrderPlace(),
       ),
