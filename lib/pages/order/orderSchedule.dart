@@ -82,7 +82,7 @@ class _OrderScheduleState extends State<OrderSchedule>{
         },
         child: SizedBox(
           child: mainBtn(context, "Proceed", false, (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => OrderConfirm(order: order)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => OrderConfirm(order: order,)));
           })
         ),
       ),

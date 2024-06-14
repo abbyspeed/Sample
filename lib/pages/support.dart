@@ -1,6 +1,7 @@
 import 'package:architech/components/navBars.dart';
 import 'package:architech/config/theme.dart';
 import 'package:architech/pages/home.dart';
+import 'package:architech/pages/support/helpCentre.dart';
 import 'package:flutter/material.dart';
 
 class Support extends StatelessWidget{
@@ -34,7 +35,7 @@ class Support extends StatelessWidget{
                 child: Stack(
                   children: [
                     InkWell(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Home())),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HelpCentre())),
                       child: Container(
                         alignment: Alignment.topCenter,
                         width: width,
@@ -65,7 +66,7 @@ class Support extends StatelessWidget{
                     Positioned(
                       top: 60,
                       child: InkWell(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Home())),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HelpCentre())),
                         child: Container(
                           alignment: Alignment.topCenter,
                           width: width,
@@ -97,7 +98,7 @@ class Support extends StatelessWidget{
                     Positioned(
                       top: 120,
                       child: InkWell(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Home())),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HelpCentre())),
                         child: Container(
                           alignment: Alignment.topCenter,
                           width: width,
@@ -129,7 +130,7 @@ class Support extends StatelessWidget{
                     Positioned(
                       top: 180,
                       child: InkWell(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Home())),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HelpCentre())),
                         child: Container(
                           alignment: Alignment.topCenter,
                           width: width,

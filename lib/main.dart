@@ -1,5 +1,6 @@
 import 'package:architech/components/processStatus.dart';
 import 'package:architech/controllers/formValidator.dart';
+import 'package:architech/controllers/providers/orderProvider.dart';
 import 'package:architech/pages/login.dart';
 import 'package:architech/pages/home.dart';
 import 'package:architech/pages/order/orderConfirm.dart';
@@ -42,11 +43,11 @@ class MyApp extends StatelessWidget {
       // home: OrderPlace(),
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (context) => FormValidator()
-          )
+          ChangeNotifierProvider(create: (context) => FormValidator()),
+          ChangeNotifierProvider(create: (context) => OrderProvider()),
+          ChangeNotifierProvider(create: (context) => ParcelProvider()),
         ],
-        child: OrderDetails(),
+        child: OrderPlace(),
       ),
     );
   }
