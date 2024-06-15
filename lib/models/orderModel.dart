@@ -2,10 +2,15 @@ import 'package:architech/models/parcelModel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class OrderModelTest extends ChangeNotifier{
-  late String orderId, name, phoneNumber, pickupLocation, deliveryCentre, selectedPayment;
+class OrderModelTest extends ChangeNotifier {
+  late String orderId,
+      name,
+      phoneNumber,
+      pickupLocation,
+      deliveryCentre,
+      selectedPayment;
   late String status = "Order is placed";
-  DateTime? selectedDate;
+  DateTime selectedDate = DateTime.now();
   late DateTime selectedTime;
   late List<ParcelModel> parcels = [];
   double parcelPrice = 1.00;
@@ -13,7 +18,7 @@ class OrderModelTest extends ChangeNotifier{
   late double totalPaid;
 
   // Mock Data
-  OrderModelTest(){
+  OrderModelTest() {
     orderId = "1";
     name = "Mariam Suriya";
     phoneNumber = "0198762371";
@@ -22,10 +27,7 @@ class OrderModelTest extends ChangeNotifier{
     selectedPayment = "COD";
     selectedDate = DateTime.now();
     selectedTime = DateTime.now();
-    parcels = [
-      ParcelModel("MP1234"),
-      ParcelModel("UI7923")
-    ];
+    parcels = [ParcelModel("MP1234"), ParcelModel("UI7923")];
   }
 
   // List<double> extraCharge = [];
@@ -39,7 +41,7 @@ class OrderModelTest extends ChangeNotifier{
     TimesAvailable("14:30:00", 0),
   ];
 
-  double totalPrice(){
+  double totalPrice() {
     parcelPrice = parcels.length * 1;
     centrePrice = parcels.length * 1;
 
@@ -47,48 +49,46 @@ class OrderModelTest extends ChangeNotifier{
   }
 
   // To be updated
-  String updateStatus(){
+  String updateStatus() {
     return status;
   }
-  
-  dateConverter(bool toString){
+
+  dateConverter(bool toString) {
     DateFormat dateFormat = DateFormat("dd MMM yyyy");
 
-    if(toString == true){
+    if (toString == true) {
       return dateFormat.format(selectedDate!);
-
-    }else{
+    } else {
       // To be changed
       return dateFormat.parse("05:30");
     }
   }
 
-  timeConverter(bool toString, String? time2){
+  timeConverter(bool toString, String? time2) {
     DateFormat timeFormat = DateFormat();
 
-    if(toString == true){
+    if (toString == true) {
       return timeFormat.add_jm().format(selectedTime);
-
-    }else{
+    } else {
       return timeFormat.parse(time2!);
     }
   }
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "phoneNumber": phoneNumber,
-    "pickupLocation": pickupLocation,
-    "deliveryCentre": deliveryCentre,
-    "parcels": parcels,
-    "selectedDate": selectedDate,
-    "selectedTime": selectedTime,
-    "selectedPayment": selectedPayment,
-    "totalPaid": 6,
-    "status": status,
-  };
+        "name": name,
+        "phoneNumber": phoneNumber,
+        "pickupLocation": pickupLocation,
+        "deliveryCentre": deliveryCentre,
+        "parcels": parcels,
+        "selectedDate": selectedDate,
+        "selectedTime": selectedTime,
+        "selectedPayment": selectedPayment,
+        "totalPaid": 6,
+        "status": status,
+      };
 }
 
-class TimesAvailable{
+class TimesAvailable {
   TimesAvailable(this.time, this.extraCharge);
 
   final String time;
@@ -96,4 +96,9 @@ class TimesAvailable{
 
   @override
   String toString() => "TimeSlot { time: $time, charge: $extraCharge}";
+}
+
+String dateFormatter(DateTime date) {
+  DateFormat dateFormat = DateFormat("dd MMM yyyy");
+  return dateFormat.format(date);
 }

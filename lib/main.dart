@@ -1,33 +1,35 @@
-import 'package:architech/components/processStatus.dart';
 import 'package:architech/controllers/formValidator.dart';
-import 'package:architech/controllers/providers/orderProvider.dart';
-import 'package:architech/pages/login.dart';
 import 'package:architech/pages/home.dart';
-import 'package:architech/pages/order/orderConfirm.dart';
-import 'package:architech/pages/order/orderCriteria.dart';
-import 'package:architech/pages/order/orderDetails.dart';
-import 'package:architech/pages/order/orderEdit.dart';
-import 'package:architech/pages/order/orderSchedule.dart';
-import 'package:architech/pages/order/orderTracking.dart';
-import 'package:architech/pages/orders.dart';
-import 'package:architech/pages/order/orderPlace.dart';
-import 'package:architech/pages/profile.dart';
-import 'package:architech/pages/signup.dart';
-import 'package:architech/pages/support/helpCentre.dart';
-import 'package:flutter/material.dart';
-
-// import 'package:architech/config/router.dart';
-
+import 'package:architech/pages/login.dart';
+import 'package:architech/pages/order/fill_your_details/provider/fill_your_details_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'pages/order/fill_your_details/fill_your_details_screen.dart';
+import 'pages/order/order_confirm/provider/order_confirm_provider.dart';
+import 'pages/order/pick_your_parcel_criteria/provider/pick_your_parcel_provider.dart';
+import 'pages/order/shedule_date/provider/shedule_date_provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      // options: DefaultFirebaseOptions.currentPlatform,
-      );
-  runApp(const MyApp());
+  await Firebase.initializeApp();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => FormValidator()),
+    ChangeNotifierProvider(
+      create: (context) => FillYourDetailsProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => PickYourParcelProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => SheduleDateProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => OrderConfirmProvider(),
+    ),
+  ], child: const MyApp()));
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -37,38 +39,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UniDash',
-      // home: OrderPlace(),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => FormValidator()),
-          // ChangeNotifierProvider(create: (context) => OrderProvider()),
-          // ChangeNotifierProvider(create: (context) => ParcelProvider()),
-        ],
-        child: OrderPlace(),
-      ),
+      home: ScreenFillYourDetails(),
     );
   }
 }
 
 class MainPage extends StatelessWidget {
+  const MainPage({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Something went Wrong'));
-        } else if (snapshot.hasData) {
-          return Home();
-        } else {
-          return Login();
-        }
-      }
-    ),
-  );
+        body: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Something went Wrong'));
+              } else if (snapshot.hasData) {
+                return const Home();
+              } else {
+                return const Login();
+              }
+            }),
+      );
 }
