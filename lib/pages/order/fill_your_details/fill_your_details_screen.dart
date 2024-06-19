@@ -1,6 +1,7 @@
 import 'package:architech/components/customDropdown.dart';
 import 'package:architech/components/form.dart';
 import 'package:architech/components/navBars.dart';
+import 'package:architech/components/searchLocation.dart';
 import 'package:architech/config/theme.dart';
 import 'package:architech/pages/order/fill_your_details/widget/fill_widget.dart';
 import 'package:architech/pages/order/shedule_date/provider/shedule_date_provider.dart';
@@ -74,12 +75,15 @@ class _ScreenFillYourDetails extends State<ScreenFillYourDetails> {
                       () {},
                       keyboardType: TextInputType.number,
                     ),
-                    textFormField(
-                      "Pickup location",
-                      "Where will you pick up your order? ",
-                      fillYourDetailsProvider.pickupController,
-                      () {},
-                    ),
+                    // textFormField(
+                    //   "Pickup location",
+                    //   "Where will you pick up your order? ",
+                    //   fillYourDetailsProvider.pickupController,
+                    //   () {},
+                    // ),
+                    // textFormField("Pickup location", "Where will you pick up your order? ", orderPlaceProvider.pickupController,() {}),
+                    SearchLocation(),
+                    const SizedBox(height: 30),
                     CustomDropDown(
                       title: "Delivery Centre",
                       selectedValue: fillYourDetailsProvider.selectedValue,
