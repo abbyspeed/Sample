@@ -27,7 +27,7 @@ class _SearchLocationState extends State<SearchLocation>{
       "maps/api/place/autocomplete/json",
       {
         "input": query,
-        "radius": 10000,
+        // "radius": 10000,
         "key": google_api_key
       }
     );
