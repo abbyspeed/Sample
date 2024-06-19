@@ -143,33 +143,33 @@ class _SearchLocationState extends State<SearchLocation>{
             ],
           ),
         ),
-        // Container(
-        //   width: MediaQuery.of(context).size.width,
-        //   margin: EdgeInsets.symmetric(vertical: 10),
-        //   child: ElevatedButton.icon(
-        //     onPressed: (){
-        //       setState(() {
-        //         getCurrentLocation();
-        //       });
-        //       // setState(() {
-        //       //   getCurrentLocation().then((value) =>{
-        //       //     controller.text = value as String
-        //       //   });
-        //       // });
-        //     }, 
-        //     icon: Icon(Icons.location_searching_rounded),
-        //     label: const Text("Use Current Location"),
-        //     style: ElevatedButton.styleFrom(
-        //       backgroundColor: lightGrey,
-        //       foregroundColor: Colors.black,
-        //       elevation: 0,
-        //       fixedSize: const Size(double.infinity, 40),
-        //       shape: const RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.all(Radius.circular(10))
-        //       )
-        //     ),
-        //   ),
-        // ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: ElevatedButton.icon(
+            onPressed: (){
+              setState(() {
+                getCurrentLocation();
+              });
+              // setState(() {
+              //   getCurrentLocation().then((value) =>{
+              //     controller.text = value as String
+              //   });
+              // });
+            }, 
+            icon: Icon(Icons.location_searching_rounded),
+            label: const Text("Use Current Location"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: lightGrey,
+              foregroundColor: Colors.black,
+              elevation: 0,
+              fixedSize: const Size(double.infinity, 40),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))
+              )
+            ),
+          ),
+        ),
         ListView.builder(
           shrinkWrap: true,
           itemCount: placePredictions.length,
