@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:architech/models/orderModel.dart';
 import 'package:architech/models/parcelModel.dart';
 import 'package:architech/pages/order/fill_your_details/model/parcel_model/parcel_model.dart';
 import 'package:architech/pages/order/fill_your_details/widget/parcel_text_filed_widget.dart';
+import "package:architech/pages/order/order_confirm/model/order_model.dart"
+    as parcel;
 import 'package:architech/pages/order/shedule_date/orderSchedule.dart';
 import 'package:architech/utilts/snackbar/snackbar_normal.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +16,101 @@ class FillYourDetailsProvider extends ChangeNotifier {
   TextEditingController pickupController = TextEditingController();
   TextEditingController trackingController = TextEditingController();
   TextEditingController centreController = TextEditingController();
+  String longitude = '';
+  String latitude = '';
+  String selectedPickAddress = '';
+  List<parcel.Parcel> parcelsMain = [];
+  List<String> totalKg = [];
+
+  void proceedButtonAddParcel() {
+    parcelsMain.clear();
+    totalKg = [];
+    for (int i = 0; i < parcelListModel.length; i++) {
+      parcel.Parcel parcelTemp = parcel.Parcel(
+          parcelId: i.toString(),
+          trackingNumber: parcelListModel[i].name.toString(),
+          criteria: parcelListModel[i].criteriaList ?? [],
+          timeCharge: "1",
+          criteriaCharge:
+              calculatedPriceCriteriaList(parcelListModel[i].criteriaList),
+          parcelCharge: "1",
+          totalParcels: parcelListModel.length.toString());
+      parcelsMain.add(parcelTemp);
+      totalKg.add(
+          calculatedPriceCriteriaListKgGet(parcelListModel[i].criteriaList));
+      print(totalKg.toString() + " totalkg");
+      print(
+        calculatedPriceCriteriaList(parcelListModel[i].criteriaList)
+                .toString() +
+            '  dslfkjsdlfkjsldf',
+      );
+    }
+
+    notifyListeners();
+  }
+
+  String calculatedPriceCriteriaList(List<String>? criteriaList) {
+    double mainValue = 0;
+    if (criteriaList != null) {
+      for (String value in criteriaList) {
+        print(value.toString());
+        if (value == "Medium") {
+          mainValue += 1;
+        }
+        if (value == "Heavy") {
+          mainValue += 2;
+        }
+        if (value == "Fragile") {
+          mainValue += 0.50;
+        }
+      }
+    }
+    return mainValue.toString();
+  }
+
+  String calculatedPriceCriteriaListKgGet(List<String>? criteriaList) {
+    double mainValue = 0;
+    if (criteriaList != null) {
+      for (String value in criteriaList) {
+        print(value.toString());
+        if (value == "Medium") {
+          mainValue += 7;
+        }
+        if (value == "Small") {
+          mainValue += 3;
+        }
+        if (value == "Heavy") {
+          mainValue += 8;
+        }
+        if (value == "Fragile") {
+          mainValue += 1;
+        }
+      }
+    }
+    return mainValue.toString();
+  }
+
+  String calculateKg(List<String> kgCalculate) {
+    double mainValue = 0;
+    if (kgCalculate != null) {
+      for (int i = 0; i < kgCalculate.length; i++) {
+        mainValue += double.parse(kgCalculate[i]);
+      }
+    }
+    return mainValue.toString();
+  }
+
+  void addLatLong(
+      {required String longitudes,
+      required String latitudes,
+      required String address}) {
+    longitude = longitudes;
+    latitude = latitudes;
+    selectedPickAddress = address;
+    log(longitude.toString(), name: "longitude1");
+    log(latitude.toString(), name: "latitude1");
+    notifyListeners();
+  }
 
   OrderModelTest order = OrderModelTest();
   String selectedValue = "Pick one";
@@ -19,6 +118,7 @@ class FillYourDetailsProvider extends ChangeNotifier {
   List<Widget> widgets = [];
   List<TextEditingController> trackingControllers = [];
   List<ParcelModelList> parcelListModel = [];
+
   initFunction() {
     selectedValue = itemList[0];
     // trackingControllers.add(trackingController);
@@ -125,6 +225,8 @@ class FillYourDetailsProvider extends ChangeNotifier {
     } else if (phoneController.text.isEmpty) {
       showSnackBar(context, "Enter your phone");
     } else if (phoneController.text.isEmpty) {
+      showSnackBar(context, "Enter your number");
+    } else if (latitude.isEmpty || longitude.isEmpty) {
       showSnackBar(context, "Enter your location");
     } else {
       Navigator.push(

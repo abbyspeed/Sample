@@ -77,6 +77,7 @@ class SheduleDateProvider extends ChangeNotifier {
       selectedTime = true;
       initialTimeSelect = false;
     }
+    print((selectedTimeValue?.time.toString() ?? "") + "   maintime");
     notifyListeners();
   }
 }

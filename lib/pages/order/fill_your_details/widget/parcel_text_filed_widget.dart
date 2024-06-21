@@ -139,10 +139,12 @@ class _ParcelTextField extends State<ParcelTextField> {
                                 itemBuilder: (context, index) {
                                   return Container(
                                     decoration: BoxDecoration(
-                                        color: secondaryColour,
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    child: Text(selectedCriteria[index]),
+                                      color: secondaryColour,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      selectedCriteria[index],
+                                    ),
                                   );
                                 })
                             : const Icon(Icons.add_box),

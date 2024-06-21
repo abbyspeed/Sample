@@ -36,7 +36,11 @@ class _ScreenFillYourDetails extends State<ScreenFillYourDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: titleBar(context, "Fill in your details", 60),
+        appBar: titleBar(
+          context,
+          "Fill in your details",
+          60,
+        ),
         floatingActionButton:
             Consumer2<FillYourDetailsProvider, SheduleDateProvider>(builder:
                 (context, fillYourDetailsProvider, sheduleDateProvider, _) {
@@ -51,6 +55,7 @@ class _ScreenFillYourDetails extends State<ScreenFillYourDetails> {
                 () {
                   sheduleDateProvider.changeInitalTime();
                   fillYourDetailsProvider.proceedFillDetailsFunction(context);
+                  fillYourDetailsProvider.proceedButtonAddParcel();
                 },
               ),
             ),

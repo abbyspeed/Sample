@@ -21,8 +21,7 @@ Future main() async {
     ChangeNotifierProvider(create: (context) => PickYourParcelProvider()),
     ChangeNotifierProvider(create: (context) => SheduleDateProvider()),
     ChangeNotifierProvider(create: (context) => OrderConfirmProvider()),
-  ], 
-  child: const MyApp()));
+  ], child: const MyApp()));
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -44,18 +43,18 @@ class MainPage extends StatelessWidget {
   const MainPage({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: StreamBuilder<User?>(
-    stream: FirebaseAuth.instance.authStateChanges(),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError) {
-        return const Center(child: Text('Something went Wrong'));
-      } else if (snapshot.hasData) {
-        return const Home();
-      } else {
-        return const Login();
-      }
-    }),
-  );
+        body: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Something went Wrong'));
+              } else if (snapshot.hasData) {
+                return const Home();
+              } else {
+                return const Login();
+              }
+            }),
+      );
 }
