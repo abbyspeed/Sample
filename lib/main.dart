@@ -2,6 +2,7 @@ import 'package:architech/controllers/formValidator.dart';
 import 'package:architech/pages/home.dart';
 import 'package:architech/pages/login.dart';
 import 'package:architech/pages/order/fill_your_details/provider/fill_your_details_provider.dart';
+import 'package:architech/pages/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UniDash',
-      home: ScreenFillYourDetails(),
+      home: Orders(),
     );
   }
 }
