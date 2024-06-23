@@ -1,5 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:developer';
+
 import 'package:architech/models/order.model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OrderViewModel {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -19,6 +21,8 @@ class OrderViewModel {
   Future<List<OrderModel>> retrieveOrders() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await _db.collection("orders").get();
+
+    log(snapshot.docs.toString());
     return snapshot.docs
         .map((docSnapshot) => OrderModel.fromDocumentSnapshot(docSnapshot))
         .toList();
