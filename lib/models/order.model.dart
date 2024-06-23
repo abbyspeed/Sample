@@ -161,7 +161,7 @@
 // }
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class OrderModel {
+class OrderModels {
   final String? id;
   final String? deliveryCentre;
   final String? name;
@@ -173,7 +173,7 @@ class OrderModel {
   final String? status;
   final String? totalPrice;
 
-  OrderModel({
+  OrderModels({
     this.id,
     required this.deliveryCentre,
     required this.name,
@@ -200,7 +200,7 @@ class OrderModel {
     };
   }
 
-  OrderModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
+  OrderModels.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
       : id = doc.id,
         deliveryCentre = doc.data()?["deliveryCentre"],
         name = doc.data()?["name"],

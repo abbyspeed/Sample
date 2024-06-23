@@ -1,8 +1,8 @@
 import 'package:architech/components/form.dart';
 import 'package:architech/components/navBars.dart';
 import 'package:architech/config/theme.dart';
-import 'package:architech/models/order.model.dart';
 import 'package:architech/pages/order/fill_your_details/fill_your_details_screen.dart';
+import 'package:architech/pages/order/order_confirm/model/order_model.dart';
 import 'package:architech/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
 
@@ -153,7 +153,7 @@ class _OrdersState extends State<Orders> {
                                                   // Check if the parcels list is not empty before accessing it
                                                   if (order.parcels.isNotEmpty)
                                                     Text(
-                                                      "Parcel 1 is ${order.parcels[0].parcelStatus}",
+                                                      "Parcel 1 is ${order.parcels[0].parcelCharge}",
                                                     ),
                                                 ],
                                               ),
@@ -175,10 +175,10 @@ class _OrdersState extends State<Orders> {
                         }
                       },
                     ),
-                    // child: FutureBuilder<List<OrderModel>>(
+                    // child: FutureBuilder<List<OrderModels>>(
                     //     future: service.retrieveOrders(),
                     //     builder: (BuildContext context,
-                    //         AsyncSnapshot<List<OrderModel>> snapshot) {
+                    //         AsyncSnapshot<List<OrderModels>> snapshot) {
                     //       if (snapshot.connectionState ==
                     //           ConnectionState.waiting) {
                     //         return const Center(
@@ -191,7 +191,7 @@ class _OrdersState extends State<Orders> {
                     //         return Center(
                     //             child: const Text('No data available'));
                     //       } else {
-                    //         List<OrderModel> orders = snapshot.data!;
+                    //         List<OrderModels> orders = snapshot.data!;
                     //
                     //         return ListView.builder(
                     //             padding: EdgeInsets.zero,
@@ -314,10 +314,10 @@ class _OrdersState extends State<Orders> {
     //     onRefresh: _refreshOrders,
     //     child: Padding(
     //       padding: const EdgeInsets.all(16.0),
-    //       child: FutureBuilder<List<OrderModel>>(
+    //       child: FutureBuilder<List<OrderModels>>(
     //         future: orderList,
     //         builder: (BuildContext context,
-    //             AsyncSnapshot<List<OrderModel>> snapshot) {
+    //             AsyncSnapshot<List<OrderModels>> snapshot) {
     //           if (snapshot.connectionState == ConnectionState.waiting) {
     //             return const Center(child: CircularProgressIndicator());
     //           } else if (snapshot.hasError) {
@@ -325,7 +325,7 @@ class _OrdersState extends State<Orders> {
     //           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
     //             return Center(child: const Text('No data available'));
     //           } else {
-    //             List<OrderModel> orders = snapshot.data!;
+    //             List<OrderModels> orders = snapshot.data!;
     //             return ListView.separated(
     //                 itemCount: orders.length,
     //                 separatorBuilder: (context, index) => const SizedBox(
